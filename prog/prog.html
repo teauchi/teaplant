@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="EUC-JP"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Style-Type" content="text/css; charset=UTF-8" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="description" content="ICT&Security cheat sheet" />
+<meta name="keywords" content="forensic,windows,linux,programming" />
+<link rel="alternate" type="application/rss+xml" title="ROR" href="ror.xml" />
+<link rel="stylesheet" href="../css/sp.css" type="text/css" media="screen and (max-width:750px)"/>
+<link rel="stylesheet" href="../css/pc.css" type="text/css" media="screen and (min-width:750px)"/>
+<link rel="START" href="/" />
+<link rev="made" href="&#109;&#97;il&#116;&#111;&#58;i&#110;&#102;&#111;&#64;te&#97;p&#108;&#97;&#110;t&#46;&#110;et" />
+<title>teaplant-Programming</title>
+</head>
+<body>
+<div id="outline">
+<!-- start header-->
+<div id="header">
+	<h1><a href="http://www.teaplant.net/" title="teaplant home">TEAPLANT<span>teaplant-ICT&Security cheat sheet</span></a></h1>
+	<div id="help">
+		<ul>
+			<li><a href="../help/teatime.html" title="Teatime">Teatime</a></li>
+			<li><a href="../help/sitemap.html" title="Sitemap">Sitemap</a></li>
+			<li><a href="../help/contact.html" title="Contact">Contact</a></li>
+		</ul>
+	</div>
+	<div id="navi">
+		<ul>
+			<li><a href="../security/security.html" title="Security">Security</a></li>
+			<li><a href="../network/network.html" title="Network">Network</a></li>
+			<li><a href="../forensic/forensic.html" title="Forensic">Forensic</a></li>
+			<li class="green">Programming</li>
+			<li><a href="../linux/linux.html" title="Linux">Linux</a></li>
+			<li><a href="../win/win.html" title="Windows">Windows</a></li>
+			<li><a href="../site/site.html" title="Tool SIte">Tool site</a></li>
+			<li><a href="../osint/osint.html" title="OSINT">OSINT</a></li>
+		</ul>
+	</div>
+	<div class="clear-both"></div>
+</div>
+<!-- end header -->
+<div id="outline-margin">
+
+
+<!-- start side -->
+<div id="side">
+	<div class="sidebox">
+		<h3>PickUp</h3>
+		<ul id="subnavi">
+			<li><a href="#winapi" title="WinAPI">WinAPI</a></li>
+			<li><a href="#python" title="Python">Python</a></li>
+			<li><a href="#eclipse" title="Eclipse Config">Eclipse Config</a></li>
+		</ul>
+	</div>
+	<div class="sideads-1">
+	<!-- google adsense -->
+	</div>
+</div>
+<!-- end side -->
+
+
+<!-- start main -->
+<div id="main">
+
+	<div class="mainbox">
+
+		<h2 id="winapi">WinAPI</h2>
+			<h3>Windowsプログラミング基礎</h3>
+				<h4>エントリポイント</h4>
+					<ul>
+						<li>Windowsプログラミングには「windows.h」のインクルードが必要</li>
+						<li>main関数ではなく、WinMain関数がエントリポイントとなる</li>
+					</ul>
+					<dl class="cmd">
+						<dt class="yellow">int WINAPI WinMan(</dt>
+						<dt class="yellow"><pre>&#009;HINSTANCE hInstance,</pre></dt>
+						<dt class="yellow"><pre>&#009;HINSTANCE hPrevInstance,</pre></dt>
+						<dt class="yellow"><pre>&#009;LPSTR lpCmdLine,</pre></dt>
+						<dt class="yellow"><pre>&#009;int nCmdShow) {</pre></dt>
+						<dt class="white"><pre>&#009;return 0;</pre></dt>
+						<dt class="yellow">}</dt>
+					</dl>
+					<ul>
+						<li>WINAPIは「windef.h」ヘッダファイルで「#define WINAPI __stdcall」と定義</li>
+						<li>「__stdcall」はWin32APIコール時の規約</li>
+						<li>以下は引数の説明</li>
+					</ul>
+					<dl class="table">
+						<dt>第1引数<p>(HINSTANCE hInstance)</p></dt><dd>アプリケーションの現在のインスタンスへのハンドル(アプリケーションを識別するための値)</dd>
+						<dt>第2引数<p>(HINSTANCE hPrevInstance)</p></dt><dd>アプリケーションの前のインスタンスへのハンドル</dd><dd>Win32では常にNULL</dd>
+						<dt>第3引数<p>(LPSTR lpCmdLine)</p></dt><dd>プログラム名を除くアプリケーションのコマンドライン</dd>
+						<dt>第4引数<p>(int nCmdShow)</p></dt><dd>ウィンドウの表示方法</dd>
+					</dl>
+					<p>参考:<a href="https://learn.microsoft.com/ja-jp/windows/win32/api/winbase/nf-winbase-winmain">learn.microsoft.com</a></p>
+
+				<h4>メッセージボックス</h4>
+					<dl class="cmd">
+						<dt class="white">int WINAPI WinMan(</dt>
+						<dt class="white"><pre>&#009;HINSTANCE hInstance,</pre></dt>
+						<dt class="white"><pre>&#009;HINSTANCE hPrevInstance,</pre></dt>
+						<dt class="white"><pre>&#009;LPSTR lpCmdLine,</pre></dt>
+						<dt class="white"><pre>&#009;int nCmdShow) {</pre></dt>
+						<dt></dt>
+						<dt class="yellow"><pre>&#009;MessageBox(NULL, TEXT("メッセージ"), TEXT("キャプション"), MB_OK);</pre></dt>
+						<dt></dt>
+						<dt class="white"><pre>&#009;return 0;</pre></dt>
+						<dt class="white">}</dt>
+					</dl>
+					<dl class="table">
+						<dt>第1引数(HWND hWnd)</dt><dd>作成するメッセージボックス所有者ウィンドウへのハンドル</dd><dd>NULLの場合、所有者ウィンドウなしとなる</dd>
+						<dt>第2引数(LPCTSTR lpText)</dt><dd>表示するメッセージ</dd>
+						<dt>第3引数(LPCTSTR lpCapton)</dt><dd>ダイアログボックスのタイトル</dd>
+						<dt>第4引数(UINT uType)</dt><dd>ダイアログボックスの内容と動作</dd>
+						<dt>戻り値(int)</dt><dd>押されたボタンに応じた値,失敗時は「0」を返す</dd>
+					</dl>
+					<p>参考:<a href="https://learn.microsoft.com/ja-jp/windows/win32/api/winuser/nf-winuser-messagebox">learn.microsoft.com</a></p>
+
+		<h2 id="python">Python</h2>
+			<h3>pip3 install for Ubuntu</h3>
+				<dl class="cmd">
+					<dt class="green"># インストール用スクリプトダウンロード</dt>
+					<dt class="white">$ curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py</dt>
+					<dt class="white">$ sudo python3 get-pip.py</dt>
+					<dt class="green"># pipのアップデート</dt>
+					<dt class="white">$ pip3 install -U pip</dt>
+				</dl>
+
+			<h3>Numeric</h3>
+				<dl class="cmd">
+					<dt class="green"># 10進数から文字列</dt>
+					<dt class="white">>>> str(123)</dt>
+						<dd class="white">'123'</dd>
+					<dt class="green"># 文字列から10進数</dt>
+					<dt class="white">>>> int('123')</dt>
+						<dd class="white">123</dd>
+					<dt class="green"># 10進数から16進数</dt>
+					<dt class="white">>>> hex(123)</dt>
+						<dd class="white">'0x7b'</dd>
+					<dt class="green"># 16進数から10進数</dt>
+					<dt class="white">>>> int('7b', 16)</dt>
+						<dd class="white">123</dd>
+					<dt class="green"># 10進数から2進数</dt>
+					<dt class="white">>>> bin(123)</dt>
+						<dd class="white">'0b1111011'</dd>
+					<dt class="green"># 2進数から10進数</dt>
+					<dt class="white">>>> int('1111011', 2)</dt>
+						<dd class="white">123</dd>
+				</dl>
+				
+
+			<h3>String</h3>
+				<dl class="cmd">
+					<dt class="green"># 文字からASCIIコード</dt>
+					<dt class="white">>>>ord('A')</dt>
+						<dd class="white">65</dd>
+					<dt class="green"># ASCIIコードから文字</dt>
+					<dt class="white">>>> chr(65)</dt>
+						<dd class="white">'A'</dd>
+					<dt class="green"># 文字列分解</dt>
+					<dt class="white">>>> list('abc')</dt>
+						<dd class="white">['a','b','c']</dd>
+					<dt class="green"># 文字列をASCIIコードで分解</dt>
+					<dt class="white">>>> map(ord, 'abc')</dt>
+						<dd class="white">[97, 98, 99]</dd>
+					<dt class="green"># ASCIIコードから文字（複数）</dt>
+					<dt class="white">>>>> map(chr, [97, 98, 99])</dt>
+						<dd class="white">'['a', 'b', 'c']</dd>
+					<dt class="green"># 文字結合</dt>
+					<dt class="white">>>> ''.join(['a', 'b', 'c'])</dt>
+						<dd class="white">'abc'</dd>
+					<dt class="green"># base64</dt>
+					<dt class="white">>>> 'abc'.encode('base64')</dt>
+						<dd class="white">'YWJj\n'</dd>
+					<dt class="white">>>> 'YWJj\n'.decode('base64')</dt>
+						<dd class="white">'abc'</dd>
+					<dt class="white">>>> print 'abc'.encode('base64') </dt>
+						<dd class="white">YWJj</dd>						
+				</dl>
+
+			<h3>暗号・ハッシュ</h3>
+				<dl class="cmd">
+					<dt class="green"># xor</dt>
+					<dt class="white">>>> ord('a') ^ ord('z')</dt>
+						<dd class="white">24</dd>
+					<dt class="green"># rot13</dt>
+					<dt class="white">>>> 'Hello'.encode('rot13')</dt>
+						<dd class="white">'Uryyb'</dd>
+					<dt class="white">>>> 'Uryyb'.decode('rot13')</dt>
+						<dd class="white">'Hello'</dd>
+					<dt class="green"># hash</dt>
+					<dt class="white">>>> import hashlib</dt>
+					<dt class="white">>>> hashlib.md5('abc').hexdigest()</dt>
+						<dd class="white">'900150983cd24fb0d6963f7d28e17f72'</dd>
+					<dt class="white">>>> hashlib.sha1('abc').hexdigest()</dt>
+						<dd class="white">'a9993e364706816aba3e25717850c26c9cd0d89d'</dd>
+					<dt class="white">>>> hashlib.sha256('abc').hexdigest()</dt>
+						<dd class="white">'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f2001</dd>
+						<dd class="white">5ad'</dd>
+				</dl>
+
+			<h3>ファイルから1行ずつ読み書き</h3>
+				<dl class="cmd">
+					<dt class="white">fin = open('./a.txt', 'r')</dt>
+					<dt class="white">fout = open('./b.txt', 'w')</dt></br>
+					<dt class="white">for line in fin</dt>
+					<dt class="white">　fout.write('out' + line)</dt><br>
+					<dt class="white">fin.close()</dt>
+					<dt class="white">fout.close()</dt><br>
+					<dt class="white">data = open('./b.txt', 'rb').read()</dt>
+					<dt class="white">print data</dt>
+				</dl>
+			<h3>ANACONDA</h3>
+				<dl>
+					<dt>jupyter</dt>
+					<dd>Web上でPythonを実行</dd>
+				</dl>
+		<h2 id="eclipse">Eclipse Config</h2>
+			<h3>C,C++（Linux gcc）</h3>
+				<h4>includeパスの設定</h4>
+					<ul>
+						<li>[Project]-[Properties]-[C/C++ Build]-[Settings]-[GCC C Compiler]-[Includes]から[Include paths(-l)]に追加する</li>
+						<li>"${workspace_loc:}"でワークスペース名、"{ProjName}"でプロジェクト名を表す</li>
+						<li>例) "${workspace_loc:/${ProjName}/include}" と指定するとプロジェクト以下のincludeフォルダを参照する</li>
+
+				<h4>pthread等のリンクオプションの設定</h4>
+					<ul>
+						<li>[Project]-[Properties]-[C/C++ Build]-[Settings]-[GCC C Linker]-[Libraries]から[Libraries(-l)]に追加する</li>
+						<li>"-l"は不要</li>
+						<li>例)Makefile上で「-lpthread」と同等の指定は単に「pthread」と指定すればよい</li>
+					</ul>
+			<h3>C,C++（MS Visual C Compiler）</h3>
+				<h4>includeパスの設定</h4>
+					<ul>
+						<li>[Project]-[Prpoperties]-[C/C++ General]-[Path and Symbols]-[Includes]にIncludeパスを追加する</li>
+						<li>パスは「C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.32.31326\include」など</li>
+					</ul>
+				<h4>コンパイラの設定</h4>
+					<ul>
+						<li>EclipseからMSVCのコンパイラ（cl.exe）が使用できるようにOSの環境設定でパスを通すか、Eclipseでコンパイラ設定を行う</li>
+						<li>Eclipseで設定する場合は[Project]-[Prpoperties]-[C/C++ Build]-[Settings]-[C++ Compiler]-[Command]にcl.exeのフルパスを入れる</li>
+					</ul>
+				<h4>リンカの設定</h4>
+					<ul>
+						<li>コンパイラと同様にリンカの設定を行う</li>
+						<li>Eclipseで設定する場合は[Project]-[Prpoperties]-[C/C++ Build]-[Settings]-[Linker]-[Command]にcl.exeのフルパスを入れる</li>
+						<li>参照するライブラリがある場合は、[Linker]-[Libraries]にパスを入れる</li>
+	</div>
+	<div class="pagetop">
+		<p><a href="#header" title="for top">Return&nbsp;to&nbsp;Top&nbsp;of&nbsp;Page</a></p>
+	</div>
+
+	<div class="mainbox">
+	<!-- google adsense -->
+	</div>
+</div>
+<!-- end main -->
+
+
+<div class="clear-both"></div>
+</div><!-- end outline-margin -->
+<!-- start footer -->
+<div id="footer">
+	<div class="footerbox">Copyright(c)&nbsp;Since&nbsp;2020&nbsp;teaplant.&nbsp;All&nbsp;rights&nbsp;reserved.</div>
+</div>
+<!-- end footer -->
+</div><!-- end outline -->
+
+
+</body>
+</html>

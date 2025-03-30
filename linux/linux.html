@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="EUC-JP"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Style-Type" content="text/css; charset=UTF-8" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="description" content="ICT&Security cheat sheet" />
+<meta name="keywords" content="forensic,windows,linux,programming" />
+<link rel="alternate" type="application/rss+xml" title="ROR" href="ror.xml" />
+<link rel="stylesheet" href="../css/sp.css" type="text/css" media="screen and (max-width:750px)"/>
+<link rel="stylesheet" href="../css/pc.css" type="text/css" media="screen and (min-width:750px)"/>
+<link rel="START" href="/" />
+<link rev="made" href="&#109;&#97;il&#116;&#111;&#58;i&#110;&#102;&#111;&#64;te&#97;p&#108;&#97;&#110;t&#46;&#110;et" />
+<title>teaplant-Linux</title>
+</head>
+<body>
+<div id="outline">
+<!-- start header-->
+<div id="header">
+	<h1><a href="http://www.teaplant.net/" title="teaplant home">TEAPLANT<span>teaplant-ICT&Security cheat sheet</span></a></h1>
+	<div id="help">
+		<ul>
+			<li><a href="../help/teatime.html" title="Teatime">Teatime</a></li>
+			<li><a href="../help/sitemap.html" title="Sitemap">Sitemap</a></li>
+			<li><a href="../help/contact.html" title="Contact">Contact</a></li>
+		</ul>
+	</div>
+	<div id="navi">
+		<ul>
+			<li><a href="../security/security.html" title="Security">Security</a></li>
+			<li><a href="../network/network.html" title="Network">Network</a></li>
+			<li><a href="../forensic/forensic.html" title="Forensic">Forensic</a></li>
+			<li><a href="../prog/prog.html" title="Programming">Programming</a></li>
+			<li class="green">Linux</li>
+			<li><a href="../win/win.html" title="Windows">Windows</a></li>
+			<li><a href="../site/site.html" title="Tool SIte">Tool site</a></li>
+			<li><a href="../osint/osint.html" title="OSINT">OSINT</a></li>
+		</ul>
+	</div>
+	<div class="clear-both"></div>
+</div>
+<!-- end header -->
+<div id="outline-margin">
+
+
+<!-- start side -->
+<div id="side">
+	<div class="sidebox">
+		<h3>PickUp</h3>
+		<ul id="subnavi">
+			<li><a href="#basic" title="Linux Basical">基礎知識</a></li>
+			<li><a href="#command" title="Linux Command">Linux Command</a></li>
+			<li><a href="#tips" title="Ubuntu Tips">Ubuntu Tips</a></li>
+		</ul>
+	</div>
+	<div class="sideads-1">
+	<!-- google adsense -->
+	</div>
+</div>
+<!-- end side -->
+
+
+<!-- start main -->
+<div id="main">
+
+	<div class="mainbox">
+		<h2 id="basic">基礎知識</h2>
+
+			<h3>標準入出力</h3>
+				<p>入力装置と出力装置の定義</p>
+				<ul>
+					<li>標準入力: 0（ディスプレイ）</li>
+					<li>標準出力: 1（キーボード）</li>
+					<li>エラー標準出力: 2（キーボード）</li>
+					<li>使用例</li>
+					<dl class="cmd">
+						<dd class="white">$ find / -name FILENAME 2 > /dev/null</dd>
+					</dl>
+					<p>findコマンドでルート以下をファイル名で検索し、エラーメッセージは仮想パスに捨てる</p>
+				</ul>
+
+
+				
+
+		<h2 id="command">Linux Command</h2>
+
+			<h3>findコマンド</h3>
+				<ul>
+					<li>使用例</li>
+					<dl class="cmd">
+						<dd class="white">$find / -type f -name doas.conf 2 > /dev/null</dd>
+					</dl>
+					<p>findコマンドでdoas.confの場所を検索する</p>
+					<dl class="cmd">
+						<dd class="white">$find / -type f -a \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2> /dev/null</dd>
+					</dl>
+					<p>Set UIDの対象ファイルを検索する</p>
+				</ul>
+				
+
+			<h3>ncコマンド</h3>
+				<ul>
+					<li>使用例</li>
+					<dl class="cmd">
+						<dd class="white">$nc -nvlp PORT</dd>
+					</dl>
+					<p>PORTで指定したポート番号でリーバスシェル接続待受け</p>
+
+
+			<h3>通信状況 netstat</h3>
+				<p>netstat -[Options]</p>
+				<ul>
+					<li>Options
+						<dl class="table">
+							<dt class="italic">Option</dt><dd class="italic">Detail</dd>
+							<dt>a</dt><dd>全てのポートを表示</dd>
+							<dt>n</dt><dd>IPアドレスで表示</dd>
+							<dt>p</dt><dd>プロセスIDとプロセス名表示</dd>
+						</dl>
+					</li>
+				</ul>
+
+			<h3>文字コード判別 nkf</h3>
+				<p>nkf -[Options] [input file] [output file]</p>
+				<ul>
+					<li>Options(出力用)
+						<dl class="table">
+							<dt class="italic">Option</dt><dd class="italic">Detail</dd>
+							<dt>j</dt><dd>ISO-2022-JPで出力</dd>
+							<dt>s</dt><dd>Shift_JISで出力</dd>
+							<dt>e</dt><dd>EUC-JPで出力</dd>
+							<dt>w8</dt><dd>UTF-8で出力(8を16,32に変更可能)</dd><dd>数字の後にB/Lを付加してバイトオーダーを指定可能、さらに末尾に0付加でBOMなし</dd><dd>w16B0の場合はUTF-16ビッグエンディアンBOMなし</dd>
+						</dl>
+					</li>
+					<li>Options(入力用)
+						<dl class="table">
+							<dt class="italic">Option</dt><dd class="italic">Detail</dd>
+							<dt>J</dt><dd>ISO-2022-JPで入力</dd>
+							<dt>S</dt><dd>Shift_JISで入力</dd>
+							<dt>E</dt><dd>EUC-JPで入力</dd>
+							<dt>W8</dt><dd>UTF-8で入力(8を16,32に変更可能)</dd><dd>数字の後にB/Lを付加してバイトオーダーを指定可能</dd><dd>W16Lの場合はUTF-16リトルエンディアン</dd>	
+							<dt>g</dt><dd>文字コード自動判別</dd>
+						</dl>
+					</li>
+					<li>よく使う組み合わせ
+						<dl class="cmd">
+							<dt class="white">$ nkf -g INPUT_FILE</dt>
+						</dl>
+					</li>
+				</ul>	
+			<h3>debパッケージ管理 dpkg</h3>
+				<p>dpkg -[Options] Command</p>
+				<ul>
+					<li>Options
+						<dl class="table">
+							<dt class="italic">Option Command</dt><dd class="italic">Detail</dd>
+							<dt>-i Archive_File_Name</dd><dd>.debパッケージのインストール</dd>
+							<dt>-r Package_Name</dd><dd>パッケージの削除</dd>
+							<dt>-P Package_Name</dd><dd>パッケージの削除(設定ファイル含む)</dd>
+							<dt>-l [String]</dd><dd>インストールパッケージのリスト表示(Stringで絞り込み可能)</dd>
+						</dl>
+					</li>
+
+
+		<h2 id="tips">Ubuntu Tips</h2>
+			<h3>パスの設定</h3>
+				<ol>
+					<li>「.profile」の編集
+						<dl class="cmd">
+							<dt class="white">$ vi ~/.profile</dt>
+						</dl>
+					</li>
+					<li>最終行に以下を追加（追加パス「/usr/local/bin/eclipse」の場合）
+						<dl class="cmd">
+							<dt class="white">export PATH=$PATH:/usr/local/bin/eclipse</dt>
+						</dl>
+					</li>
+					<li>パスの更新と確認
+						<dl class="cmd">
+							<dt class="white">$ source ~/.profile</dt>
+							<dt class="white">$ echo $PATH</dt>
+						</dl>
+					</li>
+				</ol>
+			<h3>sudo実行時にパスを引き継ぐ</h3>
+				<ol>
+					<li>sudo設定の編集
+						<dl class="cmd">
+							<dt class="white">$ visudo</dt>
+						</dl>
+					</li>
+					<li>Defaults箇所の変更
+						<dl class="cmd">
+							<dt class="green">#Defaults&nbsp;&nbsp;&nbsp;secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:</dt>
+							<dd class="green">/usr/bin:/sbin:/bin"</dd>
+							<dt class="white">Defaults&nbsp;&nbsp;&nbsp;env_keep += "PATH"</dt>
+						</dl>
+					</li>
+				</ol>
+				<dl>
+					<dt>注意点</dt>
+					<dd>この設定はroot権限時に参照されていた/sbin等のパスは通らなくなる。</dd>
+				</dl>
+			<h3>プログラムのランチャー登録</h3>
+				<ol>
+					<li>以下のファイルを作成
+						<dl>
+							<dt>プログラム名.desktop</dt>
+						</dl>
+						<dl class="cmd">
+							<dt class="green"># 大文字の箇所は適宜入力する</dt>
+							<dt class="white">[Desktop Entry]</dt>
+							<dt class="white">Type=Application</dt>
+							<dt class="white">Name=APP_NAME</dt>
+							<dt class="white">Comment=COMMENT</dt>
+							<dt class="white">Icon=ICON_PATH</dt>
+							<dt class="white">Exec=FILE_PATH</dt>
+							<dt class="white">Terminal=false</dt>
+							<dt class="white">Categories=CATEGORY;</dt>							
+						</dl>
+					</li>
+					<li>作成したファイルを以下のフォルダ等に配置
+						<dl>
+							<dt>~/.local/share/applications/</dt>
+							<dt>/usr/share/applications/</dt>
+						</dl>
+					</li>
+					<li>再度ログイン</li>
+					<li>プログラムを実行し、右クリック→お気に入りに追加</li>
+				</ol>
+			<h3>デフォルトプログラムのバージョン登録(例:python)</h3>
+				<ol>
+					<li>「update-alternatives --config」を使用した際に「update-alternatives: error: no alternatives for python」と表示された場合はバージョン登録がされていない</li>
+					<li>以下のコマンドを入力
+						<dl class="cmd">
+							<dt class="white">$ sudo update-alternatives --install /usr/bin/python python /usr/bin/python2 1</dt>
+							<dt class="white">$ sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 2</dt>
+						</dl>
+						<dl>
+							<dt>update-alternatives --install [シンボリックリンク] 識別子 [リンク先] 番号</dt>
+						</dl>
+					</li>
+
+			<h3>デフォルトプログラムのバージョン切り替え（例:java)</h3>
+				<ol>
+					<li>以下のコマンドを入力
+						<dl class="cmd"> 
+							<dt class="white">$ sudo update-alternatives --config java</dt>
+						</dl>
+					</li>
+					<li>切り替えたいバージョンの番号を入力</li>
+					<li>リンク先の確認
+						<dl class="cmd">
+							<dt class="white">$ ls -al /usr/bin/java</dt>
+						</dl>
+					</li>
+				</ol>
+
+	</div>
+	<div class="pagetop">
+		<p><a href="#header" title="for top">Return&nbsp;to&nbsp;Top&nbsp;of&nbsp;Page</a></p>
+	</div>
+
+	<div class="mainbox">
+	<!-- google adsense -->
+	</div>
+</div>
+<!-- end main -->
+
+<div class="clear-both"></div>
+</div><!-- end outline-margin -->
+<!-- start footer -->
+<div id="footer">
+	<div class="footerbox">Copyright(c)&nbsp;Since&nbsp;2020&nbsp;teaplant.&nbsp;All&nbsp;rights&nbsp;reserved.</div>
+</div>
+<!-- end footer -->
+</div><!-- end outline -->
+
+
+</body>
+</html>

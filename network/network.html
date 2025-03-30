@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="EUC-JP"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Style-Type" content="text/css; charset=UTF-8" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="description" content="ICT&Security cheat sheet" />
+<meta name="keywords" content="forensic,windows,linux,programming" />
+<link rel="alternate" type="application/rss+xml" title="ROR" href="ror.xml" />
+<link rel="stylesheet" href="../css/sp.css" type="text/css" media="screen and (max-width:750px)"/>
+<link rel="stylesheet" href="../css/pc.css" type="text/css" media="screen and (min-width:750px)"/>
+<link rel="START" href="/" />
+<link rev="made" href="&#109;&#97;il&#116;&#111;&#58;i&#110;&#102;&#111;&#64;te&#97;p&#108;&#97;&#110;t&#46;&#110;et" />
+<title>teaplant-Network</title>
+</head>
+<body>
+<div id="outline">
+<!-- start header-->
+<div id="header">
+	<h1><a href="http://www.teaplant.net/" title="teaplant home">TEAPLANT<span>teaplant-ICT&Security cheat sheet</span></a></h1>
+	<div id="help">
+		<ul>
+			<li><a href="../help/teatime.html" title="Teatime">Teatime</a></li>
+			<li><a href="../help/sitemap.html" title="Sitemap">Sitemap</a></li>
+			<li><a href="../help/contact.html" title="Contact">Contact</a></li>
+		</ul>
+	</div>
+	<div id="navi">
+		<ul>
+			<li><a href="../security/security.html" title="Security">Security</a></li>
+			<li class="green">Network</li>
+			<li><a href="../forensic/forensic.html" title="Forensic">Forensic</a></li>
+			<li><a href="../prog/prog.html" title="Programming">Programming</a></li>
+			<li><a href="../linux/linux.html" title="Linux">Linux</a></li>
+			<li><a href="../win/win.html" title="Windows">Windows</a></li>
+			<li><a href="../site/site.html" title="Tool SIte">Tool site</a></li>
+			<li><a href="../osint/osint.html" title="OSINT">OSINT</a></li>
+		</ul>
+	</div>
+	<div class="clear-both"></div>
+</div>
+<!-- end header -->
+<div id="outline-margin">
+
+
+<!-- start side -->
+<div id="side">
+	<div class="sidebox">
+		<h3>PickUp</h3>
+		<ul id="subnavi">
+			<li><a href="#format" title="データフォーマット">データフォーマット</a></li>
+			<li><a href="#tunneling" title="トンネリングプロトコル">トンネリングプロトコル</a></li>
+			<li><a href="#ipsec" title="IPSec">IPSec</a></li>
+		</ul>
+	</div>
+	<div class="sideads-1">
+	<!-- google adsense -->
+	</div>
+</div>
+<!-- end side -->
+
+
+<!-- start main -->
+<div id="main">
+
+	<div class="mainbox">
+
+		<h2 id="format">データフォーマット</h2>
+			<h3>Ethernet Frame(46 - 1518 bytes)</h3>
+				<dl class="table">
+					<dt>1.Destination Mac Address</dt><dd>6 bytes</dd>
+					<dt>2.Source Mac Address</dt><dd>6 bytes</dd>
+					<dt>3.Ether Type</dt><dd>2 bytes</dd>
+					<dt>4.Payload/Data(IP Packet)</dt><dd>46 - 1500 bytes</dd>
+					<dt>5.CRC Checksum</dt><dd>4 bytes</dd>
+				</dl>
+				<ul>
+					<li>1,2,3,4がヘッダ(合計18 bytes)</li>
+					<li>Maxmum Transmission Unit(MTU)はヘッダ18bytesを除いた1500 bytes</li>
+					<li>フレームサイズは最大1518 bytes</li>
+				</ul>
+			<h3>IPv4 Packet(1480 bytes)</h3>
+				<dl class="table">
+					<dt>1.Version</dt><dd> 4 bits</dd><dd>IPバージョン(4が入る)</dd>
+					<dt>2.Internet Header Length</dt><dd>4 bits</dd>
+					<dt>3.Type of Service</dt><dd>1 bytes</dd>
+					<dt>4.Total Length</dt><dd>2 bytes</dd><dd>IPヘッダを含むパケット長</dd>
+					<dt>5.Identification</dt><dd>2 bytes</dd>
+					<dt>6.Flags(Various Control Flags)</dt><dd>3 bits</dd><dd>断片化制御に使用</dd>
+					<dt>7.Flagment Offset</dt><dd>13 bits</dd>
+					<dt>8.Time to Linve</dt><dd>1 bytes</dd>
+					<dt>9.Protocol</dt><dd>1 bytes</dd>
+					<dt>10.Header Checksum</dt><dd>2 bytes</dd><dd>IPヘッダのみの誤り検出</dd>
+					<dt>11.Source IP Address</dt><dd>4 bytes</dd>
+					<dt>12.Destinagion IP Address</dt><dd>4 bytes</dd>
+					<dt>Options</dt><dd>3 bytes</dd>
+					<dt>Padding</dt><dd>1 bytes</dd>
+					<dt>Payload(TCP/UDP Data)</dt><dd>1480 bytes(Option未使用の場合)</dd>
+				</dl>
+				<ul>
+					<li>一般的に1~12がヘッダ(合計20 bytes)</li>
+					<li>Maxmum Transmission Unit(MTU)はヘッダ20bytesを除いた1480 bytes</li>
+					<li>パケットサイズは最大1500 bytes</li>
+				</ul>
+
+		<h2 id="tunneling">トンネリングプロトコル</h2>
+			<h3>GRE(Generic Routing Encapsulation):RFC 2784</h3>
+			<ul>
+				<li>通常ルータ間でカプセル化</li>
+				<li>マルチキャストパケットをカプセル化できる</li>
+				<li>暗号化機能を持たない</li>
+			</ul>
+			<h3>L2TP(Layer 2 Tunneling Protocol):RFC 2661</h3>
+			<ul>
+				<li>IPネットワーク上でレイヤ2通信を実現</li>	
+				<li>VPNクライアントとVPN装置間でPPPトンネルを構築</li>
+				<li>PPPフレームをL2TPヘッダ、UDPヘッダ、IPヘッダの順にカプセル化する</li>
+				<li>暗号化機能を持たない</li>
+			</ul>
+			<h3>PPTP(Point to Point Tunneling Protocol):RFC 2637</h3>
+			<ul>
+				<ui>PPPヘッダごとGREでカプセル化する</ui>
+			</ul>
+
+		<h2 id="ipsec">IPSec:RFC 4301</h2>
+		<h3>通信モード</h3>
+		<ol>
+			<li>トランスポートモード
+				<dl>
+					<dt>データ部のみ暗号化</dt>
+					<dt>全区間トンネリング</dt>
+				</dl>
+			</li>
+			<li>トンネルモード
+				<dl>
+					<dt>ヘッダ部も含めて暗号化</dt>
+					<dt>新IPヘッダ付加</dt>
+					<dt>通信経路の一部の区間をトンネリング</dt>
+				</dl>
+			</li>
+		</ol>
+		<h3>プロトコル</h3>
+		<ol>
+			<li>AH(Authentication Header)
+				<dl>
+					<dt>データの認証を行う</dt>
+					<dt>データの暗号化は行わないが外側IPヘッダも認証する</dt>
+				</dl>
+			</li>
+			<li>ESP(Encapsulating Security Payload)
+				<dl>
+					<dt>データの認証と暗号化を行う</dt>
+					<dt>外側IPヘッダとESP認証データは暗号化および認証の範囲外で、ESPヘッダは暗号化の範囲外</dt>
+				</dl>
+			</li>
+		</ol>
+		<h3>フェーズ</h3>
+		<ol>
+			<li>ISAKMP SA(IKE SA)
+				<dl>
+					<dt>鍵交換に使用される制御用トンネル</dt>
+					<dt>メインモードとアグレッシブモードがある</dt>
+					<dt>メインモード</dt><dd>双方のIPアドレスは固定である必要がある</dd>
+					<dt>アグレッシブモード</dt><dd>イニシエータは動的IPアドレスが使用できる</dd>
+				</dl>
+			</li>
+			<li>IPSec SA
+				<dl>
+					<dt>データ通信用のトンネル</dt>
+				</dl>
+			</li>
+		</ol>
+		<h3>IKE(Internet Key Exchange)</h3>
+		<ul>
+			<li>IPSecの鍵交換で使用されるプロトコル</li>
+			<li>UDP 500番を使用</li>
+			<li>起動側をイニシエータ、応答側をレスポンダと呼ぶ</li>
+			<li>Diffie Hellmanを使用</li>
+		</ul>
+		<h3>NAT超えの方法</h3>
+		<ul>
+			<li>NATトラバーサル
+				<dl>
+					<dt>新IPヘッダとESPヘッダの間にUDPヘッダを挿入する</dt>
+				</dl>
+			</li>
+			<li>VPNパススルー
+				<dl>
+					<dt>IPヘッダのプロトコルフィールドを見て、上位層がポート番号を持たない時はIPのみを書き換える</dt>
+					<dt>AHの場合はIPヘッダも認証対象のため、書き換えると認証エラーとなる</dt>
+				</dl>
+			</li>
+		</ul>
+
+	</div>
+
+	<div class="pagetop">
+		<p><a href="#header" title="for top">Return&nbsp;to&nbsp;Top&nbsp;of&nbsp;Page</a></p>
+	</div>
+
+	<div class="mainbox">
+	<!-- google adsense -->
+	</div>
+</div>
+<!-- end main -->
+
+
+<div class="clear-both"></div>
+</div><!-- end outline-margin -->
+<!-- start footer -->
+<div id="footer">
+	<div class="footerbox">Copyright(c)&nbsp;Since&nbsp;2020&nbsp;teaplant.&nbsp;All&nbsp;rights&nbsp;reserved.</div>
+</div>
+<!-- end footer -->
+</div><!-- end outline -->
+
+
+</body>
+</html>

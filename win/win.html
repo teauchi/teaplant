@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="EUC-JP"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Style-Type" content="text/css; charset=UTF-8" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="description" content="ICT&Security cheat sheet" />
+<meta name="keywords" content="forensic,windows,linux,programming" />
+<link rel="alternate" type="application/rss+xml" title="ROR" href="ror.xml" />
+<link rel="stylesheet" href="../css/sp.css" type="text/css" media="screen and (max-width:750px)"/>
+<link rel="stylesheet" href="../css/pc.css" type="text/css" media="screen and (min-width:750px)"/>
+<link rel="START" href="/" />
+<link rev="made" href="&#109;&#97;il&#116;&#111;&#58;i&#110;&#102;&#111;&#64;te&#97;p&#108;&#97;&#110;t&#46;&#110;et" />
+<title>teaplant-Windows</title>
+</head>
+<body>
+<div id="outline">
+<!-- start header-->
+<div id="header">
+	<h1><a href="http://www.teaplant.net/" title="teaplant home">TEAPLANT<span>teaplant-ICT&Security cheat sheet</span></a></h1>
+	<div id="help">
+		<ul>
+			<li><a href="../help/teatime.html" title="Teatime">Teatime</a></li>
+			<li><a href="../help/sitemap.html" title="Sitemap">Sitemap</a></li>
+			<li><a href="../help/contact.html" title="Contact">Contact</a></li>
+		</ul>
+	</div>
+	<div id="navi">
+		<ul>
+			<li><a href="../security/security.html" title="Security">Security</a></li>
+			<li><a href="../network/network.html" title="Network">Network</a></li>
+			<li><a href="../forensic/forensic.html" title="Forensic">Forensic</a></li>
+			<li><a href="../prog/prog.html" title="Programming">Programming</a></li>
+			<li><a href="../linux/linux.html" title="Linux">Linux</a></li>
+			<li class="green">Windows</li>
+			<li><a href="../site/site.html" title="Tool SIte">Tool site</a></li>
+			<li><a href="../osint/osint.html" title="OSINT">OSINT</a></li>
+		</ul>
+	</div>
+	<div class="clear-both"></div>
+</div>
+<!-- end header -->
+<div id="outline-margin">
+
+
+<!-- start side -->
+<div id="side">
+	<div class="sidebox">
+		<h3>PickUp</h3>
+		<ul id="subnavi">
+			<li><a href="#wincmd" title="Windows Command">Windows Command</a></li>
+			<li><a href="#win10conf" title="Windows10 Config">Windows10 Config</a></li>
+			<li><a href="#bitlocker" title="Windows BitLocker">Windows BitLocker</a></li>
+			<li><a href="#eventlog" title="イベントログ">イベントログ</a></li>
+			<li><a href="#registry" title="レジストリ">レジストリ</a></li>
+		</ul>
+	</div>
+	<div class="sideads-1">
+	<!-- google adsense -->
+	</div>
+</div>
+<!-- end side -->
+
+
+<!-- start main -->
+<div id="main">
+
+	<div class="mainbox">
+
+		<h2 id="wincmd">Windows Command</h2>
+			<h3>通信状況 netstat</h3>
+				<p>netstat -[Options]</p>
+				<ul>
+					<li>Options
+						<dl class="table">
+							<dt class="italic">Option</dt><dd class="italic">Detail</dd>
+							<dt>a</dt><dd>全てのポートを表示</dd>
+							<dt>n</dt><dd>IPアドレスで表示</dd>
+							<dt>o</dt><dd>プロセスIDを表示</dd>
+							<dt>b</dt><dd>プロセス名表示</dd>
+						</dl>
+					</li>
+					<li>使用例
+						<dl class="cmd">
+							<dt class="white">> netstat -anob</dt>
+						</dl>
+					</li>
+				</ul>
+			<h3>プロセス表示 tasklist</h3>
+				<p>tasklist /[Options]</p>
+				<ul>
+					<li>Options
+						<dl class="table">
+							<dt class="italic">Option</dt><dd class="italic">Detail</dd>
+							<dt>v</dt><dd>詳細情報表示</dd>
+							<dt>m</dt><dd>コマンドラインオプションを表示</dd>
+							<dt>svc</dt><dd>サービスとの関連を表示</dd>
+							<dt>fi</dt><dd>フィルタ</dd><dd>(Example: tasklist /fi "pid eq プロセスID")</dd>
+						</dl>
+					</li>
+					<li>使用例
+						<dl class="cmd">
+							<dt class="white">> tasklist /svc</dt>
+							<dt class="white">> tasklist /m /fi "pid eq プロセスID"</dt>
+						</dl>
+					</li>
+				</ul>
+			<h3>プロセス終了 taskkill</h3>
+				<p>task kill /[Options]</p>
+				<ul>
+					<li>Options
+						<dl class="table">
+							<dt class="italic">Option</dt><dd class="italic">Detail</dd>
+							<dt>pid</dt><dd>プロセスID</dd>
+							<dt>im</dt><dd>イメージ名</dd>
+						</dl>
+					</li>
+					<li>使用例
+						<dl class="cmd">
+							<dt class="white">> taskkill /pid 1234</dt>
+						</dl>
+					</li>
+				</ul>
+			<h3>システム管理基盤コマンド wmic</h3>
+				<ul>
+					<li>実行中のプロセス情報を簡易表示
+						<dl class="cmd">
+							<dt class="white">> wmic process list brif</dt>
+						</dl>
+					</li>
+					<li>実行中のプロセス情報を詳細表示
+						<dl class="cmd">
+							<dt class="white">> wmic process list full</dt>
+						</dl>
+					</li>
+					<li>実行中のプロセスの特定フィールドのみを表示
+						<dl class="cmd">
+							<dt class="white">> wmic process get name, parentprocessid, processid</dt>
+						</dl>
+					</li>
+					<li>実行時のコマンドラインを表示
+						<dl class="cmd">
+							<dt class="white">> wmic process list get commandline</dt>
+						</dl>
+					<li>特定のプロセスのみ表示
+						<dl class="cmd">
+							<dt class="white">> wmic process where processid=プロセスID get commandline</dt>
+							<dt class="white">> wmic process where name="lsass.exe" list full</dt>
+						</dl>
+					</li>
+					<li>共通の親を持つ子プロセスを表示
+						<dl class="cmd">
+							<dt class="white">> wmic process list where parentprocessid=1234</dt>
+						</dl>
+				</ul>
+
+
+
+
+		<h2 id="win10conf">Windows10 Config</h2>
+			<h3>Windows10でWindowsPhotoViewerを使用する</h3>
+				<p>以下をテキストに記載し、レジストリとして実行する</p>
+				<dl class="cmd">
+					<dt class="white small">
+						Windows Registry Editor Version 5.00
+						[HKEY_CLASSES_ROOT\Applications\photoviewer.dll]
+						[HKEY_CLASSES_ROOT\Applications\photoviewer.dll\shell]
+						[HKEY_CLASSES_ROOT\Applications\photoviewer.dll\shell\open]
+						"MuiVerb"="@photoviewer.dll,-3043"
+						[HKEY_CLASSES_ROOT\Applications\photoviewer.dll\shell\open\command]
+						@=hex(2):25,00,53,00,79,00,73,00,74,00,65,00,6d,00,52,00,6f,00,6f,00,74,00,25,\
+						00,5c,00,53,00,79,00,73,00,74,00,65,00,6d,00,33,00,32,00,5c,00,72,00,75,00,\
+						6e,00,64,00,6c,00,6c,00,33,00,32,00,2e,00,65,00,78,00,65,00,20,00,22,00,25,\
+						00,50,00,72,00,6f,00,67,00,72,00,61,00,6d,00,46,00,69,00,6c,00,65,00,73,00,\
+						25,00,5c,00,57,00,69,00,6e,00,64,00,6f,00,77,00,73,00,20,00,50,00,68,00,6f,\
+						00,74,00,6f,00,20,00,56,00,69,00,65,00,77,00,65,00,72,00,5c,00,50,00,68,00,\
+						6f,00,74,00,6f,00,56,00,69,00,65,00,77,00,65,00,72,00,2e,00,64,00,6c,00,6c,\
+						00,22,00,2c,00,20,00,49,00,6d,00,61,00,67,00,65,00,56,00,69,00,65,00,77,00,\
+						5f,00,46,00,75,00,6c,00,6c,00,73,00,63,00,72,00,65,00,65,00,6e,00,20,00,25,\
+						00,31,00,00,00
+						[HKEY_CLASSES_ROOT\Applications\photoviewer.dll\shell\open\DropTarget]
+						"Clsid"="{FFE2A43C-56B9-4bf5-9A79-CC6D4285608A}"
+						[HKEY_CLASSES_ROOT\Applications\photoviewer.dll\shell\print]
+						[HKEY_CLASSES_ROOT\Applications\photoviewer.dll\shell\print\command]
+						@=hex(2):25,00,53,00,79,00,73,00,74,00,65,00,6d,00,52,00,6f,00,6f,00,74,00,25,\
+						00,5c,00,53,00,79,00,73,00,74,00,65,00,6d,00,33,00,32,00,5c,00,72,00,75,00,\
+						6e,00,64,00,6c,00,6c,00,33,00,32,00,2e,00,65,00,78,00,65,00,20,00,22,00,25,\
+						00,50,00,72,00,6f,00,67,00,72,00,61,00,6d,00,46,00,69,00,6c,00,65,00,73,00,\
+						25,00,5c,00,57,00,69,00,6e,00,64,00,6f,00,77,00,73,00,20,00,50,00,68,00,6f,\
+						00,74,00,6f,00,20,00,56,00,69,00,65,00,77,00,65,00,72,00,5c,00,50,00,68,00,\
+						6f,00,74,00,6f,00,56,00,69,00,65,00,77,00,65,00,72,00,2e,00,64,00,6c,00,6c,\
+						00,22,00,2c,00,20,00,49,00,6d,00,61,00,67,00,65,00,56,00,69,00,65,00,77,00,\
+						5f,00,46,00,75,00,6c,00,6c,00,73,00,63,00,72,00,65,00,65,00,6e,00,20,00,25,\
+						00,31,00,00,00
+						[HKEY_CLASSES_ROOT\Applications\photoviewer.dll\shell\print\DropTarget]
+						"Clsid"="{60fd46de-f830-4894-a628-6fa81bc0190d}"
+					</dt>
+				</dl>
+				<p>引用元:<a href="https://www.tenforums.com/software-apps/8930-windows-photo-viewer-gone-2.html#post290818">tenforums.com</a></p>
+
+		<h2 id="bitlocker">Windows BitLocker</h2>
+			<h3>BitLockerの概要</h3>
+				<ul>
+					<li>ボリューム暗号化用の鍵「FVEK(Full Volume Encryption Key)」とFVEKを暗号化する鍵「VMK(Volume Master Key)と」の2種類の鍵を使用する</li>
+					<li>ボリュームの暗号化、FVEKの暗号化にはAESが使用される</li>
+					<li>VMKの暗号化に使用されるキーの種類
+						<dl class="table">
+							<dt class="italic">キーの種類</dt><dd class="italic">内容</dd>
+							<dt>TPM(Trusted Platform Module)</dt>
+								<dd>
+									<ul>
+										<li>BitLockerを有効にするために原則必須</li>
+										<li>他の種類の保護をしていない場合、PCを起動すると自動的に読み込まれ、ドライブの暗号化が解除される</li>
+									</ul>
+								</dd>
+							<dt>PINコード</dt>
+								<dd>
+									<ul>
+										<li>4～20桁の数字のみパスワード</li>
+										<li>TPMと合わせてのみ使用可能</li>
+										<li>デフォルトは4桁</li>
+									</ul>
+								</dd>								
+							<dt>拡張PIN</dt>
+								<dd>
+									<ul>
+										<li>英数字のパスワード</li>
+										<li>TPMと合わせてのみ使用可能</li>
+									</ul>
+								</dd>
+							<dt>スタートアップキー</dt>
+								<dd>
+									<ul>
+										<li>ロック解除用ファイル(.bek:Bitlocker Encryption Key)を保存したUSB等に保存</li>
+										<li>起動時にUSB等を挿して解除する</li>
+										<li>単独でも使用可能で、TPMと合わせて使用することも可能</li>
+									</ul>
+								</dd>					
+							<dt>数値パスワード(Numerical Password)</dt>
+								<dd>
+									<ul>
+										<li>ロックアウト時等に入力して解除する為のパスワード</li>
+										<li>8桁の数字ブロックを6個入力する(合計48桁)</li>
+										<li>BitLocker暗号化時に外部媒体への保存、Microsoftアカウントへの保存、印刷のいずれかにより保存する</li>
+										<li>画面上では「回復キー」と表記される</li>
+									</ul>
+								</dd>
+						</dl>
+					</li>
+
+					<li>VMKの暗号化の解除方法（認証方法）
+						<dl class="table">
+							<dt class="italic">認証方法</dt><dd class="italic">内容</dd>
+							<dt>TPM(Trusted Platform Module)のみ</dt>
+								<dd>
+									<ul>
+										<li>初期ブートコンポーネントを検証する</li>
+										<li>PCを起動すると自動的に読み込まれ、ドライブの暗号化が解除される</li>
+									</ul>
+								</dd>
+							<dt>TPM + PIN</dt>
+								<dd>
+									<ul>
+										<li>初期ブートコンポーネントを検証する</li>
+										<li>ドライブの暗号化を解除する前にPINを入力する</li>
+										<li>誤ったPINを繰り返し入力するとアカウントがロックされる</li>
+										<li>指定桁数入力するとEnterキー等を押すことなく認証処理に入る</li>
+									</ul>
+								</dd>								
+							<dt>TPM + ネットワークキー</dt>
+								<dd>
+									<ul>
+										<li>初期ブートコンポーネントを検証する</li>
+										<li>サーバから提供されるネットワークキーで暗号化が解除される</li>
+									</ul>
+								</dd>
+							<dt>スタートアップキーのみ</dt>
+								<dd>
+									<ul>
+										<li>外部媒体に保存されたスタートアップキーで暗号化が解除される</li>
+									</ul>
+								</dd>
+							<dt>TPM + スタートアップキー</dt>
+								<dd>
+									<ul>
+										<li>初期ブートコンポーネントを検証する</li>
+										<li>外部媒体に保存されたスタートアップキーで暗号化が解除される</li>
+									</ul>
+								</dd>					
+							<dt>数値パスワード(Numerical Password)</dt>
+								<dd>
+									<ul>
+										<li>上記のとおり</li>
+									</ul>
+								</dd>
+						</dl>
+					</li>
+				</ul>
+
+
+			<h3>BitLocker管理ツール</h3>
+				<h4>ボリュームステータスの確認</h4>
+					<dl class="cmd">
+						<dt class="white">> manage-bde -status</dt>
+					</dl>				
+				<h4>回復キーを取得する</h4>
+					<dl class="cmd">
+						<dt class="white">> manage-bde -protectors -get c:</dt>
+					</dl>
+
+		<h2 id="eventlog">イベントログ</h2>
+			<h3>イベントログファイルの場所</h3>
+				<dl>
+					<dt>%SystemRoot%\System32\winevt\Logs\</dt><dd>通常は「C:\Windows\System32\winevt\Logs\」</dd>
+				</dl>
+			<h3>イベントログレコード</h3>
+				<ul>
+					<li>イベントログファイル内のログを「レコード」と呼ぶ</li>
+					<li>イベントログに記録される日時(Event Time)はイベントログが記録された日時(イベントが発生した日時ではないことに注意)</li>
+					<li>イベントログサービスの不具合等で日時が前後して記録される場合がある</li>
+					<li>レコードには「EventRecordID」があり、レコードの作成順に番号が付与される</li>
+					<li>日時に不整合がある場合は「EventRecordID」を確認することでイベントの発生順を確認できる(XMLで表示)</li>
+				</ul>
+			<h3>Microsoft Docs</h3>
+				<p><a href="https://docs.microsoft.com/en-us/previous-versions/bb671205(v=vs.90)">Technology Summary for Reading and Managing Event Logs</a></p>
+				<p><a href="https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.eventing.reader.eventlogrecord?redirectedfrom=MSDN&view=dotnet-plat-ext-3.1">EventLogRecord Class</a></p>
+
+
+
+		<h2 id="registry">レジストリ</h2>
+			<h3>レジストリのASEP(Autostart Extensibility Points)</h3>
+				<ul>
+					<li>HKLM\Software\Microsoft\Windows\CurrentVersion\Run</li>
+					<li>HKLM\Software\Microsoft\Windows\CurrentVersion\RunOnce</li>
+					<li>HKLM\Software\Microsoft\Windows\CurrentVersion\RunOnceEx</li>
+				</ul>
+				<dl>
+					<dt>HKLMのほかHKCUにも存在する</dt>
+				</dl>
+
+			<h3>レジストリ設定値の確認</h3>
+				<dl class="cmd">
+					<dt class="white">>get query HKLM\Softwre\Microsoft\Windows\CurrentVersion\Run</dt>
+				</dl>
+
+
+	</div>
+	<div class="pagetop">
+		<p><a href="#header" title="for top">Return&nbsp;to&nbsp;Top&nbsp;of&nbsp;Page</a></p>
+	</div>
+
+	<div class="mainbox">
+	<!-- google adsense -->
+	</div>
+</div>
+<!-- end main -->
+
+<div class="clear-both"></div>
+</div><!-- end outline-margin -->
+<!-- start footer -->
+<div id="footer">
+	<div class="footerbox">Copyright(c)&nbsp;Since&nbsp;2020&nbsp;teaplant.&nbsp;All&nbsp;rights&nbsp;reserved.</div>
+</div>
+<!-- end footer -->
+</div><!-- end outline -->
+
+
+</body>
+</html>

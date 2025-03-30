@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="EUC-JP"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Style-Type" content="text/css; charset=UTF-8" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="description" content="ICT&Security cheat sheet" />
+<meta name="keywords" content="forensic,windows,linux,programming" />
+<link rel="alternate" type="application/rss+xml" title="ROR" href="ror.xml" />
+<link rel="stylesheet" href="../css/sp.css" type="text/css" media="screen and (max-width:750px)"/>
+<link rel="stylesheet" href="../css/pc.css" type="text/css" media="screen and (min-width:750px)"/>
+<link rel="START" href="/" />
+<link rev="made" href="&#109;&#97;il&#116;&#111;&#58;i&#110;&#102;&#111;&#64;te&#97;p&#108;&#97;&#110;t&#46;&#110;et" />
+<title>teaplant-Forensic</title>
+</head>
+<body>
+<div id="outline">
+<!-- start header-->
+<div id="header">
+	<h1><a href="http://www.teaplant.net/" title="teaplant home">TEAPLANT<span>teaplant-ICT&Security cheat sheet</span></a></h1>
+	<div id="help">
+		<ul>
+			<li><a href="../help/teatime.html" title="Teatime">Teatime</a></li>
+			<li><a href="../help/sitemap.html" title="Sitemap">Sitemap</a></li>
+			<li><a href="../help/contact.html" title="Contact">Contact</a></li>
+		</ul>
+	</div>
+	<div id="navi">
+		<ul>
+			<li><a href="../security/security.html" title="Security">Security</a></li>
+			<li><a href="../network/network.html" title="Network">Network</a></li>
+			<li class="green">Forensic</li>
+			<li><a href="../prog/prog.html" title="Programming">Programming</a></li>
+			<li><a href="../linux/linux.html" title="Linux">Linux</a></li>
+			<li><a href="../win/win.html" title="Windows">Windows</a></li>
+			<li><a href="../site/site.html" title="Tool SIte">Tool site</a></li>
+			<li><a href="../osint/osint.html" title="OSINT">OSINT</a></li>
+		</ul>
+	</div>
+	<div class="clear-both"></div>
+</div>
+<!-- end header -->
+<div id="outline-margin">
+
+<!-- start side -->
+<div id="side">
+	<div class="sidebox">
+		<h3>PickUp</h3>
+		<ul id="subnavi">
+			<li><a href="#tools" title="Forensic Tools">Forensic Tools</a></li>
+			<li><a href="#macos" title="MacOS">MacOS</a></li>
+			<li><a href="#iphone" title="iPhone">iPhone</a></li>
+			<li><a href="#iot" title="IoT">IoT</a></li>
+			<li><a href="#byteorder" title="バイトオーダー">バイトオーダー</a></li>
+		</ul>
+	</div>
+	<div class="sideads-1">
+	<!-- google adsense -->
+	</div>
+</div>
+<!-- end side -->
+
+
+<!-- start main -->
+<div id="main">
+
+	<div class="mainbox">
+		<h2 id="tools">Forensic Tools</h2>
+			<h3>証跡採取</h3>
+				<ul>
+					<li>FTK Imager Lite</li>
+				</ul>
+			<h3>レジストリ解析</h3>
+				<ul>
+					<li>WindowsRegistoryRecovery</li>
+					<li>Regshot</li>
+					<li>SAMInside</li>
+				</ul>
+			<h3>プロセス監視</h3>
+				<ul>
+					<li>Process Explorer</li>
+					<li>Process Hacker
+						<dl>
+							<dt>性能は Process Hacker > Process Explorerか</dt>
+							<dt>プロセス情報をリアルタイムで確認できる</dt>
+							<dt>Stringsも確認可能</dt>
+							<dt>署名の確認 Options - Verify Image Signatures</dt>
+							<dt>パッキグプロセスは紫色となる</dt>
+						</dl>
+					</li>
+					<li>Process Monitor
+						<dl>
+							<dt>レジストリ、ファイル操作、実行コマンド、ネットワークアクセス等の履歴を確認</dt>
+							<dt>noribenと併用</dt>
+							<dt>フィルタを使用する
+								<dl class="table">
+									<dt class="italic">フィルタルール</dt><dd class="italic">意味</dd>
+									<dt>Process Name is explorer.exe</dt><dd>プロセス名指定</dd>
+									<dt>Operation is WriteFile</dt><dd>ファイル書込み指定</dd>
+									<dt>Operation is SetDisposition InformationFile</dt><dd>ファイル削除指定</dd>
+									<dt>Operation is RegSetValue</dt><dd>レジストリ値設定指定</dd>
+									<dt>Category is Write</dt><dd>書込み全般指定</dd>
+								</dl>
+							</dt>
+						</dl>
+					</li>
+				</ul>
+			<h3>メモリ解析</h3>
+				<ul>
+					<li>Volatility
+						<dl class="cmd">
+							<dt class="green"># メモリイメージプロファイル取得</dt>
+							<dt class="white">$ volatility -f FILE_NAME imageinfo</dt><br>
+							<dt class="green"># SYSTEMとSAMレジストリアドレスを取得</dt>
+							<dt class="white">$ volatility -f FILE_NAME --profile=Win7SP1x64 hivelist</dt><br>
+							<dt class="green"># パスワードハッシュを求める</dt>
+							<dt class="white">$ volatility -f FILE_NAME --profile=Win7SP1x64 hashdump -y SYSTEM_ADDRESS -s SAM_ADDRESS</dt><br>
+							<dt class="green"># プロセスツリーを表示する</dt>
+							<dt class="white">$ volatility -f FILE_NAME --profile=Win7SP1x64 pstree</dt><br>
+							<dt class="green"># プロセスリストを表示する</dt>
+							<dt class="white">$ volatility -f FILE_NAME --profile=Win7SP1x64 splits</dt><br>
+							<dt class="green"># ロードDLLリストを表示する</dt>
+							<dt class="white">$ volatility -f FILE_NAME --profile=Win7SP1x64 dlllist</dt><br>
+							<dt class="green"># ネットワーク情報を表示する}</dt>
+							<dt class="white">$ volatility.exe -f FILE_NAME --profile=Win7SP1x64 netscan</dt><br>
+						</dl>
+					</li>
+				</ul>
+			<h3>ファイル解析</h3>
+				<ul>
+					<li>fileコマンド
+						<dl class="cmd">
+							<dt class="white">$ file FILE_NAME</dt>
+						</dl>
+					</li>
+					<li>Bulk Extractor
+						<dl>
+							<dt>カービングを実施</dt>
+						</dl>
+					</li>
+					<li>binwalk
+						<dl>
+							<dt>ファイル展開</dt>
+						</dl>
+						<dl class="cmd">
+							<dt class="white">$ binwalk -e FILE_NAME</dt>
+						</dl>
+					</li>
+					<li>シャドウコピー解析
+						<dl>
+							<dt>vssadminコマンド</dt>
+						</dl>
+						<dl class="cmd">
+							<dt class="white">>vssadmin list shadows /for=E:</dt>
+							<dt class="white">>mklink /d E:\shadowcopy \\?\GLOVALROOT...</dt>	
+							<dt class="white">>vshadowmount</dt>
+						</dl>
+					</li>
+				</ul>
+			<h3>プログラム表層解析</h3>
+				<ul>
+					<li>EXE Explorer</li>
+					<li>File Alyzer</li>
+					<li>CFF Explorer</li>
+					<li>Stud_PE</li>
+					<li>Python + PEFile（Pythonライブラリ）</li>
+				</ul>
+			<h3>デバッガ</h3>
+				<ul>
+					<li>Immunity Debugger</li>
+					<li>OllyDbg</li>
+					<li>x64dbg</li>
+					<li>IDA</li>
+				</ul>
+			<h3>逆コンパイラ</h3>
+				<ul>
+					<li>dnSpy</li>
+					<li>ILSpy</li>
+				</ul>
+			<h3>DLL実行</h3>
+				<ul>
+					<li>LoadDll</li>
+				</ul>
+			<h3>テキスト抽出</h3>
+				<ul>
+					<li>BinText
+						<dl>
+							<dt>収集率は良くない</dt>
+						</dl>
+					</li>
+					<li>stringsコマンド</li>
+				</ul>
+			<h3>ウェブ解析</h3>
+				<ul>
+					<li>Fiddler（ローカルプロキシ）</li>
+					<li>Google Chrome 開発者モード</li>
+				</ul>
+			<h3>解析環境</h3>
+				<ul>
+					<li>仮想マシン
+						<dl>
+							<dt>VMware</dt>
+							<dt>VirtualBox</dt>
+						</dl>
+					</li>
+				</ul>
+			<h3>擬似サーバ</h3>
+				<ul>
+					<li>Fakenet</li>
+					<li>FakeDNS</li>
+					<li>INetSim</li>
+				</ul>
+			<h3>通信傍受</h3>
+				<ul>
+					<li>WireShark</li>
+					<li>iptables
+						<dl>
+							<dt>-snat</dt>
+							<dt>-redirect</dt>
+						</dl>
+					</li>
+				</ul>
+
+		<h2 id="macos">MacOS</h2>
+			<h3>Notes（メモ帳）のsqlite解析</h3>
+				<ol>
+					<li>sqliteファイル抽出
+						<dl>
+							<dt>~「/Library/Group Containers/group.com.apple.notes/NoteStore.sqlite」を取り出す</dt>
+						</dl>
+					</li>
+					<li>メモの記録箇所
+						<dl>
+							<dt>「ZICNOTEDATA」テーブル</dt>
+							<dt>「ZDATA」列（BLOB型）</dt>
+						</dl>
+					</li>
+					<li>メモの記録内容
+						<dl>
+							<dt>sqlite browser等で確認すると、「ZDATA」列の中は「0x1f 0x8b」で始まる値</dt>
+							<dt>「0x1f 0x8b」はgzipファイルなので、sqlite browserの機能からエクスポートし、解凍することで復元できる</dt>
+						</dl>
+					</li>
+				</ol>
+			<h3>印刷履歴の解析</h3>
+				<ul>
+					<li>プリンタ設定
+						<dl>
+							<dt>~/Library/Preferences/org.cups.printers.plist</dt>
+							<dt>/Library/Preferences/org.cups.printers.plist</dt>
+							<dt>/etc/cups/printers.conf</dt>
+						</dl>
+					</li>
+					<li>印刷ジョブ
+						<dl>
+							<dt>/private/var/spool/cups</dt>
+						</dl>
+					</li>
+					<li>印刷履歴
+						<dl>
+							<dt>/private/var/log/cups/access_log</dt>
+						</dl>
+					</li>
+				</ul>
+
+		<h2 id="iphone">iPhone</h2>
+			<h3>iSafePlayのパスワード解析</h3>
+				<ol>
+					<li>パスワードファイル抽出
+						<dl>
+							<dt>net.fanship.iSafePlay\Library\Preferences\net.fanship.iSafePlay.plist</dt>
+						</dl>
+					</li>
+					<li>パスワード記載箇所
+						<dl>
+							<dt>&lt;key&gt;isafepw&lt;/key&gt;</dt>
+							<dt>&lt;string&gt;（パスワードハッシュ）&lt;/string&gt;</dt>
+						</dl>
+					</li>
+					<li>パスワードハッシュはBase64でエンコードされているため、デコードを実施</li>
+					<li>デコードした値（16進数）はMD5ハッシュであるため、パスワード解析ソフト等により解析を実施</li>
+				</ol>
+				<h4>※version 10.26で確認</h4>
+			<h3>iTunesバックアップの保存場所変更</h3>
+				<ol>
+					<li>iTunesバックアップのデフォルトの保存場所（以下のいずれか）
+						<dl>
+							<dt>- C:\Users\[user name]\AppData\Roaming\Apple Computer\MobileSync\Backup</dt>
+							<dt>- C:\Users\[user name]\Apple\MobileSync</dt>
+						</dl>
+					</li>
+					<li>デフォルト保存場所にある「Backup」フォルダの名前を変更するか削除する</li>
+					<li>変更先のフォルダを作成する</li>
+					<li>デフォルトの保存場所から「Backup」として変更先フォルダに向けたシンボリックリンクを作成
+						<dl>
+							<dt>mklink /d "C:/Users/[user name]/AppData\Roaming/Apple Computer/MobileSync/Backup" "D:\Backup"</dt>
+							<dt>※「D:\Backup」は変更先のフォルダ</dt>
+						</dl>
+					</li>
+			<h3>iPhone入力サジェストの解析</h3>
+				<ul>
+					<li>入力サジェストの保存場所
+						<dl>
+							<dt>/private/var/mobile/Library/Keyboard/DynamicBigramPharseLexion_ja_JP.db</dt>
+						</dl>
+					</li>
+				</ul>
+
+		<h2 id="iot">IoT</h2>
+			<h3>UART(Universal Asynchronous Receiver Transmitter)</h3>
+				<ul>
+					<li>調歩同期方式のシリアル通信装置で、マイコン等で使用されることが多い</li>
+					<li>最も単純な構成は[GND][TX][RX]の3線構成</li>
+					<li>[TX]は送信、[TR]は受信</li>
+					<li>他の機器と接続する際は、[GND-GND][TX-TR][TR-TX]のようにクロス接続する
+					<li>同期速度（ボーレート）を設定する必要がある
+						<dl>
+							<dt>110bps,150bps,300bps,600bps,1200bps,4800bps,9600bps,19200bps,38400bps,57600bps,115200bpsなど</dt>
+						</dl>
+					</li>
+				</ul>
+				<h4>IoT機器のUARTとPCの通信方法</h4>
+				<ol>
+					<li>UARTと思われる4ピンから、テスタ等で抵抗値を測定し、導通している箇所が[GND]</li>
+					<li>機器の電源投入後テスタで各ピンの電圧を測定する</li>
+					<li>3.3V(5V)で安定しているピンが[VCC]、電圧が変動するピンが[TX]、他が[TR]</li>
+					<li>USB-Serial変換機とIoT機器の[TX][TR][GND]をそれぞれ接続する</li>
+					<li>PCのターミナル等でボーレートを設定する</li>
+					<li>IoT機器の電源を投入すると起動時のメッセージが確認できる</li>
+				</ol>
+			<h3>フラッシュメモリ</h3>
+				<ul>
+					<li>記載予定</li>
+				</ul>
+
+		<h2 id="byteorder">バイトオーダー</h2>
+			<h3>ビッグエンディアン</h3>
+				<ul>
+					<li>バイト列をバイトの上位から順番に並べる方法</li>
+					<li>「1234ABCD」をビッグエンディアンで並べると「12 34 AB CD」となる</li>
+					<li>メモリに格納した場合は、メモリアドレスの低い番地番地に「12」が格納され、メモリアドレスの高い番地に「CD」が格納される順番となる</li>
+					<li>ネットワーク上ではビッグエンディアンでデータが送信される</li>
+				</ul>
+			<h3>リトルエンディアン</h3>
+				<ul>
+					<li>バイト列をバイトの下位から順番に並べる方法</li>
+					<li>「1234ABCD」をリトルエンディアンで並べると「CD AB 34 12」となる</li>
+					<li>メモリに格納した場合は、メモリアドレスの低い番地番地に「CD」が格納され、メモリアドレスの高い番地に「12」が格納される順番となる</li>
+					<li>Intel互換のCPUではリトルエンディアンでデータが格納される</li>
+				</ul>
+			<h3>プログラミングにおける留意事項</h3>
+				<ul>
+					<li>ネットワークプログラミングにおいてデータ送信順序に関係する</li>
+					<li>C言語ではネットワークとホストのバイトオーダーを変換するために以下の関数がある</li>
+				</ul>
+				<dl class="table">
+					<dt class="italic">関数</dt><dd class="italic">説明</dd>
+					<dt>ntons()</dt><dd>network to host short</dd><dd>ネットワークバイトオーダーからホストバイトオーダーへ変換(16bit)</dd>
+					<dt>ntonl()</dt><dd>network to host long</dd><dd>ネットワークバイトオーダーからホストバイトオーダーへ変換(32bit)</dd>
+					<dt>htons()</dt><dd>host to network short</dd><dd>ホストバイトオーダーからネットワークバイトオーダーへ変換(16bit)</dd>
+					<dt>htonl()</dt><dd>host to network long</dd><dd>ホストバイトオーダーからネットワークバイトオーダーへ変換(32bit)</dd>
+				</dl>
+	</div>
+	<div class="pagetop">
+		<p><a href="#header" title="for top">Return&nbsp;to&nbsp;Top&nbsp;of&nbsp;Page</a></p>
+	</div>
+
+	<div class="mainbox">
+	<!-- google adsense -->
+	</div>
+</div>
+<!-- end main -->
+
+<div class="clear-both"></div>
+</div><!-- end outline-margin -->
+<!-- start footer -->
+<div id="footer">
+	<div class="footerbox">Copyright(c)&nbsp;Since&nbsp;2020&nbsp;teaplant.&nbsp;All&nbsp;rights&nbsp;reserved.</div>
+</div>
+<!-- end footer -->
+</div><!-- end outline -->
+
+
+</body>
+</html>

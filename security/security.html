@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="EUC-JP"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Style-Type" content="text/css; charset=UTF-8" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="description" content="ICT&Security cheat sheet" />
+<meta name="keywords" content="forensic,windows,linux,programming" />
+<link rel="alternate" type="application/rss+xml" title="ROR" href="ror.xml" />
+<link rel="stylesheet" href="../css/sp.css" type="text/css" media="screen and (max-width:750px)"/>
+<link rel="stylesheet" href="../css/pc.css" type="text/css" media="screen and (min-width:750px)"/>
+<link rel="START" href="/" />
+<link rev="made" href="&#109;&#97;il&#116;&#111;&#58;i&#110;&#102;&#111;&#64;te&#97;p&#108;&#97;&#110;t&#46;&#110;et" />
+<title>teaplant-Security</title>
+</head>
+<body>
+<div id="outline">
+<!-- start header-->
+<div id="header">
+	<h1><a href="http://www.teaplant.net/" title="teaplant home">TEAPLANT<span>teaplant-ICT&Security cheat sheet</span></a></h1>
+	<div id="help">
+		<ul>
+			<li><a href="../help/teatime.html" title="Teatime">Teatime</a></li>
+			<li><a href="../help/sitemap.html" title="Sitemap">Sitemap</a></li>
+			<li><a href="../help/contact.html" title="Contact">Contact</a></li>
+		</ul>
+	</div>
+	<div id="navi">
+		<ul>
+			<li class="green">Security</li>
+			<li><a href="../network/network.html" title="Network">Network</a></li>
+			<li><a href="../forensic/forensic.html" title="Forensic">Forensic</a></li>
+			<li><a href="../prog/prog.html" title="Programming">Programming</a></li>
+			<li><a href="../linux/linux.html" title="Linux">Linux</a></li>
+			<li><a href="../win/win.html" title="Windows">Windows</a></li>
+			<li><a href="../site/site.html" title="Tool SIte">Tool site</a></li>
+			<li><a href="../osint/osint.html" title="OSINT">OSINT</a></li>
+		</ul>
+	</div>
+	<div class="clear-both"></div>
+</div>
+<!-- end header -->
+<div id="outline-margin">
+
+
+<!-- start side -->
+<div id="side">
+	<div class="sidebox">
+		<h3>PickUp</h3>
+		<ul id="subnavi">
+			<li><a href="#ptools" title="Pentest Tools">Pentest Tools</a></li>
+		</ul>
+	</div>
+	<div class="sideads-1">
+	<!-- google adsense -->
+	</div>
+</div>
+<!-- end side -->
+
+
+<!-- start main -->
+<div id="main">
+
+	<div class="mainbox">
+
+		<h2 id="ptools">Pentest Tools</h2>
+
+			<h3>ポートスキャナ nmap</h3>
+				<p>nmap [Scan Type(s)] [Options] {target specification}</p>
+				<ul>
+					<li>Scan Type
+						<dl class="table">
+							<dt class="italic">Type</dt><dd class="italic">Scan</dd>
+							<dt>-sS</dt><dd>TCP SYN Scan</dd>
+							<dt>-sT</dt><dd>TCP Connect() Scan</dd>
+							<dt>-sF</dt><dd>TCP FIN Scan</dd>
+							<dt>-sU</dt><dd>UDP Scan</dd>
+							<dt>-sV</dt><dd>Service Scan</dd>
+							<dt>-sC</dt><dd>Script Scan</dd>
+						</dl>
+					</li>
+					<li>Options
+						<dl class="table">
+							<dt class="italic">Option</dt><dd class="italic">Detail</dd>
+							<dt>-p</dt><dd>Port ranges</dd><dd>(Example: -p 80, -p 80-500)</dd>
+							<dt>-p-</dt><dd>All ports scan</dd>
+							<dt>-v</dt><dd>Increase verbosity level</dd>
+							<dt>-n</dt><dd>Don't Resolve DNS</dd>
+							<dt>-Pn</dt><dd>Treat all hosts as online</dd>
+							<dt>-O</dt><dd>Enabel OS detection</dd>
+							<dt>-A</dt><dd>Enable OS, version and script scanning detection</dd>
+							<dt>--reason</dt><dd>判定理由を表示</dd>
+						</dl>
+					</li>
+					<li>よく使う組み合わせ
+						<dl class="cmd">
+							<dt class="white">$ nmap -sV -n -Pn -p- HOST</dt>
+						</dl>
+					</li>
+					<li>注意点
+						<dl>
+							<dt>ポート指定がない場合は代表的な1000ポートがスキャンされる</dt>
+							<dt>以下コマンドで1000ポートを表示できる</dt>
+							<dt>nmap -oG - -v</dt>
+						</dl>
+					</li>
+				</ul>
+
+			<h3>オンラインブルートフォース（パスワードスプレー）</h3>
+				<ul>
+					<li>hydra</li>
+				</ul>
+			<h3>Webアプリ脆弱性検査</h3>
+				<ul>
+					<li>nikto</li>
+				</ul>
+			<h3>Webサイトディレクトリ列挙</h3>
+				<ul>
+					<li>gobuster
+						<dl>
+							<dt>gobuster dir -u http://xxx.xxx.xxx.xxx/ -w WORDLIST</dt>
+						</dl>
+					</li>
+				</ul>
+			<h3>Webアプリケーションプロキシ</h3>
+				<ul>
+					<li>Burp Suite</li>
+				</ul>
+			<h3>おとりWi-Fi AP</h3>
+				<ul>
+					<li>wifipumpkin3</li>
+				</ul>
+	</div>
+
+	<div class="pagetop">
+		<p><a href="#header" title="for top">Return&nbsp;to&nbsp;Top&nbsp;of&nbsp;Page</a></p>
+	</div>
+
+	<div class="mainbox">
+	<!-- google adsense -->
+	</div>
+</div>
+<!-- end main -->
+
+
+<div class="clear-both"></div>
+</div><!-- end outline-margin -->
+<!-- start footer -->
+<div id="footer">
+	<div class="footerbox">Copyright(c)&nbsp;Since&nbsp;2020&nbsp;teaplant.&nbsp;All&nbsp;rights&nbsp;reserved.</div>
+</div>
+<!-- end footer -->
+</div><!-- end outline -->
+
+
+</body>
+</html>
