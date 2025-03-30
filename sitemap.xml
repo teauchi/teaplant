@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+<!--  created with free sitemap generation system www.sitemapxml.jp  --> 
+<url>
+  <loc>http://www.teaplant.net/</loc>
+  <priority>1.0</priority>
+  <lastmod>2020-05-07T22:43:00+09:00</lastmod>
+</url>
+<url>
+  <loc>http://www.teaplant.net/help/teatime.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2020-05-06T20:31:18+09:00</lastmod>
+</url>
+<url>
+  <loc>http://www.teaplant.net/help/sitemap.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2020-05-07T22:37:07+09:00</lastmod>
+</url>
+<url>
+  <loc>http://www.teaplant.net/help/contact.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2020-05-06T20:30:14+09:00</lastmod>
+</url>
+<url>
+  <loc>http://www.teaplant.net/security/security.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2020-05-06T20:32:27+09:00</lastmod>
+</url>
+<url>
+  <loc>http://www.teaplant.net/network/network.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2020-05-07T22:25:18+09:00</lastmod>
+</url>
+<url>
+  <loc>http://www.teaplant.net/forensic/forensic.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2020-05-06T20:30:39+09:00</lastmod>
+</url>
+<url>
+  <loc>http://www.teaplant.net/prog/prog.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2020-05-06T20:32:11+09:00</lastmod>
+</url>
+<url>
+  <loc>http://www.teaplant.net/linux/linux.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2020-05-06T20:31:33+09:00</lastmod>
+</url>
+<url>
+  <loc>http://www.teaplant.net/win/win.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2020-05-06T20:33:06+09:00</lastmod>
+</url>
+<url>
+  <loc>http://www.teaplant.net/site/site.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2020-05-06T20:32:53+09:00</lastmod>
+</url>
+<url>
+  <loc>http://www.teaplant.net/osint/osint.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2020-05-06T20:31:55+09:00</lastmod>
+</url>
+
+</urlset>

@@ -1,0 +1,421 @@
+@import url("init.css");
+/*----------------------------------------
+	▼全般
+----------------------------------------*/
+body{
+	text-align:center;
+	line-height:140%;
+	font-family:Verdana;
+	font-size:small;
+	color:#330000;
+}
+
+/*----------------------------------------
+	▼block
+	[outline]
+	　[header]
+	　	[help]
+	　	[navi]
+	　[outline-margin]
+	　　[main]
+　	　	　[mainbox]
+	　　[side]
+	　　　[sidebox]
+	　[footer]
+----------------------------------------*/
+div#outline{
+	background:url("../image/bg_outline.gif") top center repeat-y;
+	width:750px;
+	text-align:left;
+	margin:0 auto;
+}
+
+div#outline-margin{
+	margin:0 10px;
+}
+
+div#header{
+	background:url("../image/bg_header.gif") top center no-repeat;
+	height:50px;
+	text-align:center;
+	margin:0 auto;
+}
+div#help {
+	width:600px;
+	height:25px;
+	float:right;
+}
+
+div#navi {
+	width:740px;
+	height:25px;
+	float:right;
+}
+
+div#footer{
+	background:url("../image/bg_footer.gif") top center no-repeat;
+	height:20px;
+	text-align:center;
+	margin:0 auto;
+}
+
+div#main{
+	width:550px;
+	float:right;
+	text-align:center;
+	margin:0;
+}
+
+div#side{
+	width:170px;
+	height:auto;
+	float:left;
+	text-align:center;
+	margin:0;
+}
+
+/*----------------------------------------
+	▼header
+----------------------------------------*/
+#header h1 a{
+	width:140px;
+	height:20px;
+	display:block;
+	margin:0;
+	padding-top:5px;
+	float:left;
+}
+
+#header h1 a span{
+	display:none;
+}
+
+#header h1 a:hover{
+	text-decoration:none;
+}
+/*----------------------------------------
+	▼help
+----------------------------------------*/
+#help ul{
+	padding-top:5px;
+	letter-spacing:2px;
+}
+
+#help ul li{
+	list-style:none;
+	float:right;
+	margin:0 0.8em;
+}
+
+#help ul a{
+}
+
+#help ul a:link{
+	color:#ffffff;
+	text-decoration:none;
+}
+
+#help ul a:visited{
+	color:#ffffff;
+	text-decoration:none;
+}
+
+#help ul a:active{
+	color:#66cc66;
+	text-decoration:none;
+}
+
+#help ul a:hover{
+	color:#66cc66;
+	text-decoration:none;
+}
+
+
+
+/*----------------------------------------
+	▼navi
+----------------------------------------*/
+#navi ul{
+	padding-top:5px;
+	letter-spacing:2px;
+}
+
+#navi ul li{
+	list-style:none;
+	float:left;
+	margin:0 0.8em;
+}
+
+#navi ul a{
+}
+
+#navi ul a:link{
+	color:#ffffff;
+	text-decoration:none;
+}
+
+#navi ul a:visited{
+	color:#ffffff;
+	text-decoration:none;
+}
+
+#navi ul a:active{
+	color:#66cc66;
+	text-decoration:none;
+}
+
+#navi ul a:hover{
+	color:#66cc66;
+	text-decoration:none;
+}
+
+
+/*----------------------------------------
+	▼subnavi
+----------------------------------------*/
+ul#subnavi{
+	list-style-image:url("../image/cursor01.gif");
+	list-style-position:inside;
+	list-style-type:circle;
+}
+
+ul#subnavi li{
+	margin:0.5em 0;
+}
+
+/*----------------------------------------
+	▼main
+----------------------------------------*/
+div#main h2{
+	background:url("../image/line01.gif") bottom left repeat-x;
+	line-height:2.0;
+	margin:0.5em 0;
+}
+
+div#main h3{
+	line-height:2.0;
+	color:#330000;
+	margin:1em 0 0 0;
+}
+
+div#main p{
+	margin:0 0 1em 1em;
+}
+div.mainbox{
+	text-align:left;
+	margin:10px;
+	clear:both;
+}
+div.pagetop{
+	text-align:right;
+	margin:10px;
+	clear:both;
+}
+
+/*----------------------------------------
+	▼side
+----------------------------------------*/
+div.sidebox{
+	text-align:left;
+	margin:10px;
+}
+
+div.sidepadding{
+	height:200px;
+	margin:10px;
+}
+
+div.sideads-1{
+	height:600px;
+	text-align:left;
+	margin:10px;
+}
+
+/*----------------------------------------
+	▼footerbox
+----------------------------------------*/
+div.footerbox{
+	text-align: center;
+	color: #ffffff;
+}
+
+/*----------------------------------------
+	▼link
+----------------------------------------*/
+a:link{
+	color: #009900;
+	text-decoration: none;
+}
+
+a:visited{
+	color: #009900;
+	text-decoration: none;
+}
+
+a:active{
+	color: #66cc66;
+	text-decoration: none;
+}
+
+a:hover{
+	color: #66cc66;
+	text-decoration: underline;
+}
+
+/*----------------------------------------
+	▼リスト（ul,ol,dl）
+----------------------------------------*/
+ul{
+	list-style-position: inside;
+	list-style-type: circle;
+}
+ul li{
+	margin: 0.5em 1em;
+}
+
+
+ul.sitemap{
+	list-style-position: inside;
+	list-style-type: disc;
+}
+ul.sitemap li{
+	margin: 0.5em 3em;
+}
+
+
+ol{
+	list-style-position: inside;
+	list-style-type: decimal;
+}
+ol li{
+	margin:0 .5em 1em;
+}
+
+
+ol.golden-rule{
+	list-style-position: inside;
+	list-style-type: lower-roman;
+}
+ol.golden-rule li{
+	margin: 0.5em 1em;
+}
+
+
+dl{
+}
+dl dt{
+	padding: 0.2em 0 0 1em;
+	color: #990000;
+}
+dl dd{
+	padding: 0 0 0 2em;
+}
+
+
+dl.update{
+}
+dl.update dt{
+	font-weight: bold;
+	margin: 1em 0 0 0;
+	color: #330000;
+}
+dl.update dd{
+	margin: 0 0 0 1em;
+}
+
+
+dl.table {
+  background-color: #f8f8f8;
+  border-right: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  border-left: 1px solid #cccccc;
+  margin: 0.3em 0 0.3em 0;
+}
+dl.table dt {
+  padding: 0.3em 0.3em 0 1em;
+  border-top: 1px solid #cccccc;
+  color: #330000;
+  width: 50%;
+  float: left;
+}
+dl.table dd {
+  padding:0.3em 0.3em 0 1em;
+  border-top: 1px solid #cccccc;
+  background: #ffffff;
+  margin-left: 50%;
+  padding-bottom: 0.3em;
+  border-left: 1px solid #cccccc;
+  color: #330000;
+  text-align: left;
+}
+dl.table dd:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+
+
+dl.cmd{
+	background: #330000;
+	padding: 0 0 0.5em 0;
+}
+dl.cmd dt{
+}
+dl.cmd dd{
+}
+
+
+/*----------------------------------------
+	▼テキスト装飾
+----------------------------------------*/
+.bold{
+	font-weight: bold;
+}
+
+.italic{
+	font-style: italic;
+}
+
+.small{
+	font-size: 80%;
+}
+
+.red{
+	color: #990000;
+}
+
+.green{
+	color: #009900;
+}
+
+.white{
+	color: #ffffff;
+}
+.incomplete{
+	color: #999999;
+}
+
+.center{
+	text-align: center;
+}
+
+.clear-both{
+	clear: both;
+}
+.clear-left{
+	clear: left;
+}
+.clear-right{
+	clear: right;
+}
+
+/*----------------------------------------
+	▼イメージ
+----------------------------------------*/
+img {
+	border: 0;
+	margin: 0 1em 0 1em;
+}
+
+
